@@ -11,6 +11,7 @@
   --folo-soft: rgba(86, 120, 200, 0.24);
   --rsshub: #d46f2b;
   --rsshub-soft: rgba(212, 111, 43, 0.24);
+  --rss3: #2f8f83;
   --max-width: 1240px;
   --radius: 32px;
   --section-gap: clamp(5rem, 12vw, 10rem);
@@ -484,6 +485,10 @@ h3 {
   max-width: 11ch;
 }
 
+.chapter-token {
+  color: var(--rss3);
+}
+
 .chapter-copy > p:not(.chapter-lead) {
   max-width: 33rem;
   color: var(--muted);
@@ -571,8 +576,16 @@ h3 {
     linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(212, 111, 43, 0.1));
 }
 
+.chapter-art--rss3 {
+  background:
+    radial-gradient(circle at 22% 16%, rgba(47, 143, 131, 0.3), transparent 24%),
+    radial-gradient(circle at 76% 76%, rgba(47, 143, 131, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(47, 143, 131, 0.1));
+}
+
 .folo-stage,
-.rsshub-stage {
+.rsshub-stage,
+.rss3-stage {
   position: absolute;
   inset: 0;
 }
@@ -580,7 +593,11 @@ h3 {
 .folo-rail,
 .folo-card,
 .rsshub-route,
-.rsshub-node {
+.rsshub-node,
+.rss3-beam,
+.rss3-panel,
+.rss3-orbit,
+.rss3-node {
   position: absolute;
 }
 
@@ -742,6 +759,136 @@ h3 {
   right: 34%;
 }
 
+.chapter--rss3 .chapter-copy h2 {
+  max-width: 12ch;
+}
+
+.rss3-beam {
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(47, 143, 131, 0.12),
+    rgba(47, 143, 131, 0.55),
+    rgba(47, 143, 131, 0.12)
+  );
+}
+
+.rss3-beam--one {
+  top: 33%;
+  left: 16%;
+  width: 58%;
+  transform: rotate(-12deg);
+}
+
+.rss3-beam--two {
+  right: 14%;
+  bottom: 27%;
+  width: 54%;
+  transform: rotate(11deg);
+}
+
+.rss3-panel {
+  width: clamp(8.8rem, 19vw, 12.4rem);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    0 20px 40px rgba(47, 143, 131, 0.16);
+}
+
+.rss3-panel::before,
+.rss3-panel::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  border-radius: 999px;
+}
+
+.rss3-panel::before {
+  top: 20%;
+  height: 0.7rem;
+  background: rgba(47, 143, 131, 0.14);
+}
+
+.rss3-panel::after {
+  top: 38%;
+  height: 0.42rem;
+  background: rgba(47, 143, 131, 0.28);
+  box-shadow: 0 1rem 0 rgba(47, 143, 131, 0.16);
+}
+
+.rss3-panel--one {
+  top: 14%;
+  left: 13%;
+  height: 11rem;
+  transform: rotate(-7deg);
+}
+
+.rss3-panel--two {
+  top: 33%;
+  right: 18%;
+  height: 9.6rem;
+  transform: rotate(8deg);
+}
+
+.rss3-panel--three {
+  bottom: 12%;
+  left: 24%;
+  height: 10.4rem;
+  transform: rotate(-4deg);
+}
+
+.rss3-orbit {
+  border: 1px solid rgba(47, 143, 131, 0.18);
+  border-radius: 50%;
+}
+
+.rss3-orbit--one {
+  top: 7%;
+  right: 12%;
+  width: 15rem;
+  height: 15rem;
+}
+
+.rss3-orbit--two {
+  bottom: 5%;
+  left: 9%;
+  width: 18rem;
+  height: 12rem;
+  transform: rotate(-12deg);
+}
+
+.rss3-node {
+  width: 0.95rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: #f7fffd;
+  box-shadow: 0 0 0 10px rgba(47, 143, 131, 0.14);
+}
+
+.rss3-node--one {
+  top: 23%;
+  left: 44%;
+}
+
+.rss3-node--two {
+  top: 42%;
+  right: 25%;
+}
+
+.rss3-node--three {
+  bottom: 26%;
+  left: 20%;
+}
+
+.rss3-node--four {
+  right: 20%;
+  bottom: 18%;
+}
+
 .chapter-caption {
   position: absolute;
   left: 1.2rem;
@@ -797,11 +944,69 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
   padding-top: 1.2rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.footer-copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.footer-copy p:first-child {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.8rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(20, 17, 15, 0.1);
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--text);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(20, 17, 15, 0.14);
+}
+
+.social-link:focus-visible {
+  outline: 2px solid rgba(20, 17, 15, 0.26);
+  outline-offset: 4px;
+}
+
+.social-link__icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted);
+}
+
+.social-link__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 [data-reveal] {
@@ -855,6 +1060,10 @@ h3 {
 
   .link-copy {
     text-align: left;
+  }
+
+  .footer-socials {
+    justify-content: flex-start;
   }
 }
 
