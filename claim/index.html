@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claim RSS3 · RSS3</title>
+    <meta name="description" content="Claim your RSS3 tokens with a Merkle proof." />
+    <link rel="icon" href="/assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/claim/claim.css" />
+    <script src="/airdrop.config.js" defer></script>
+    <script src="/claim/claim.js" defer></script>
+  </head>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/index.html" aria-label="RSS3 home">
+          <img class="brand-mark" src="/assets/logo.png" alt="" aria-hidden="true" />
+          <span class="brand-text">RSS3</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/index.html#vision">Vision</a>
+          <a href="/index.html#folo">Folo</a>
+          <a href="/index.html#rsshub">RSSHub</a>
+          <a href="/index.html#rss3">$RSS3</a>
+          <a class="is-active" href="/claim/" aria-current="page">Claim</a>
+          <a href="/index.html#blog">Blog</a>
+          <a href="/index.html#ecosystem">Ecosystem</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap claim-main" id="main">
+      <section class="claim-card" id="claimCard" data-claim-state="idle">
+        <header class="claim-card__header">
+          <h1 class="claim-title">Claim RSS3</h1>
+          <p class="claim-subtitle">
+            Connect your wallet to check eligibility, then claim.
+          </p>
+        </header>
+
+        <div class="claim-grid claim-grid--compact">
+          <div class="claim-row claim-row--stack">
+            <div class="claim-label">Wallet</div>
+            <div class="claim-value claim-wallet">
+              <code id="walletAddress">Not connected</code>
+              <button class="button" id="connect">Connect</button>
+            </div>
+          </div>
+
+          <div class="claim-row claim-row--stack">
+            <div class="claim-label">Claimable</div>
+            <div class="claim-value">
+              <div class="claim-amount">
+                <div class="claim-amount__primary">
+                  <span id="claimableHuman">0</span>
+                </div>
+                <div class="claim-amount__secondary">
+                  <span class="muted"><span id="claimableRaw">0</span> (raw)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="claim-actions">
+          <button class="button button--primary" id="claim" disabled>
+            <span class="btn-label" id="claimBtnLabel">Claim</span>
+            <span class="spinner" id="claimSpinner" aria-hidden="true"></span>
+          </button>
+          <div class="claim-hint" id="hint"></div>
+        </div>
+
+        <div class="wallet-modal" id="walletModal" hidden>
+          <div class="wallet-modal__backdrop" data-wallet-close></div>
+          <div class="wallet-modal__panel" role="dialog" aria-modal="true" aria-label="Select wallet">
+            <div class="wallet-modal__title">Select wallet</div>
+            <div class="wallet-modal__list" id="walletList"></div>
+            <button class="button button--ghost wallet-modal__cancel" type="button" data-wallet-close>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
