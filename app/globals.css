@@ -241,7 +241,7 @@ ul {
 }
 
 .top-banner__inner::after {
-  content: "↗";
+  content: "\2197";
 }
 
 .hero {
@@ -279,7 +279,7 @@ h2,
 h3 {
   margin: 0;
   font-weight: 640;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -667,7 +667,7 @@ h3 {
 
 .link-row a::after,
 .ecosystem-links a::after {
-  content: "↗";
+  content: "\2197";
   color: currentColor;
 }
 
@@ -1077,7 +1077,7 @@ h3 {
 }
 
 .blog-card__cta::after {
-  content: " ↗";
+  content: " \2197";
 }
 
 .ecosystem-layout {
@@ -1463,6 +1463,9 @@ body.page--article h1 {
 
   .header-inner {
     gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border-radius: 2rem;
   }
 
   .top-banner {
@@ -1477,6 +1480,13 @@ body.page--article h1 {
     min-height: 2.2rem;
     padding: 0 0.8rem;
     font-size: 0.9rem;
+  }
+
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 
   .hero {
@@ -1536,4 +1546,205 @@ body.page--article h1 {
 .reduced-motion [data-reveal] {
   opacity: 1;
   transform: none;
+}
+
+.claim-main {
+  padding: 5.5rem 0 6rem;
+}
+
+.claim-card {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.6rem, 4vw, 2.2rem);
+  border-radius: 32px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: clip;
+}
+
+.claim-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 16% 18%, rgba(95, 142, 255, 0.16), transparent 52%);
+  opacity: 0.7;
+}
+
+.claim-card__header {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1.5rem;
+}
+
+.claim-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: 0;
+}
+
+.claim-subtitle {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+}
+
+.claim-grid {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.05rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(68, 96, 150, 0.12);
+}
+
+.claim-grid--compact {
+  gap: 0.8rem;
+}
+
+.claim-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.claim-row--stack {
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+}
+
+.claim-label {
+  font-weight: 600;
+  color: rgba(17, 27, 45, 0.86);
+}
+
+.claim-value {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.claim-wallet {
+  justify-content: space-between;
+}
+
+.claim-wallet code {
+  max-width: min(100%, 42rem);
+  overflow-wrap: anywhere;
+}
+
+.claim-amount__primary {
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.claim-card .button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.claim-card[data-claim-state="disabled"] {
+  filter: grayscale(1);
+}
+
+.claim-card[data-claim-state="disabled"] .claim-amount__primary {
+  color: rgba(96, 113, 141, 0.9);
+}
+
+.claim-card[data-claim-state="disabled"] .claim-amount__secondary {
+  opacity: 0.75;
+}
+
+.claim-card[data-claim-state="disabled"] .button--primary:disabled {
+  background: rgba(96, 113, 141, 0.28);
+  color: rgba(17, 27, 45, 0.6);
+  box-shadow: none;
+  border-color: rgba(96, 113, 141, 0.22);
+}
+
+.claim-card[data-claim-state="disabled"] .button--primary:disabled .spinner {
+  display: none;
+}
+
+.claim-card[data-claim-state="claiming"] .button--primary:disabled {
+  filter: none;
+}
+
+.claim-actions .button--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: rgba(255, 255, 255, 1);
+  display: none;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner.is-on {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.claim-actions {
+  position: relative;
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1.25rem;
+}
+
+.claim-hint {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.claim-hint .linklike {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.claim-hint .linklike:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.claim-hint code {
+  font-size: 0.92em;
+}
+
+@media (max-width: 760px) {
+  .claim-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 0.35rem 0;
+  }
 }

@@ -1,0 +1,5 @@
+{
+  "contractAddress": "0x0000000000000000000000000000000000000000",
+  "requiredChainId": "0x1",
+  "merkleUrl": "/assets/final_airdrop_merkle.json"
+}
