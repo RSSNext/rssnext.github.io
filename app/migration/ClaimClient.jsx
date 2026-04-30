@@ -223,7 +223,7 @@ export default function ClaimClient() {
     !isClaiming;
 
   const cardState = canClaim ? "ready" : isClaiming ? "claiming" : "disabled";
-  const claimButtonLabel = isClaiming ? "Migrating..." : isAlreadyClaimed ? "Migrated" : "Migrate";
+  const claimButtonLabel = isClaiming ? "Claiming..." : isAlreadyClaimed ? "Claimed" : "Claim";
 
   let hint = claimMessage;
   if (!hint) {
@@ -252,9 +252,12 @@ export default function ClaimClient() {
     <main className="wrap claim-main" id="main">
       <section className="claim-card" data-claim-state={cardState}>
         <header className="claim-card__header">
-          <h1 className="claim-title">Migrate RSS3</h1>
+          <h1 className="claim-title">Access VSL Assets</h1>
           <p className="claim-subtitle">
-            Connect your wallet to check migration eligibility, then migrate.
+            VSL users can access their migrated assets here. $POWER is
+            automatically migrated to $RSS3. For Folo wallets, migration is
+            completed automatically; transfers, withdrawals, and other wallet
+            actions should continue through Folo Wallet.
           </p>
         </header>
 

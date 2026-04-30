@@ -3,8 +3,8 @@ import SiteHeader from "../components/SiteHeader";
 import ClaimIsland from "./ClaimIsland";
 
 export const metadata = {
-  title: "Migrate RSS3",
-  description: "Migrate your RSS3 tokens with a Merkle proof.",
+  title: "Access VSL Assets",
+  description: "VSL users can access migrated assets here.",
 };
 
 export default function ClaimPage() {

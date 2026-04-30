@@ -12,9 +12,12 @@ function ClaimFallback() {
     <main className="wrap claim-main" id="main">
       <section className="claim-card" data-claim-state="disabled">
         <header className="claim-card__header">
-          <h1 className="claim-title">Migrate RSS3</h1>
+          <h1 className="claim-title">Access VSL Assets</h1>
           <p className="claim-subtitle">
-            Connect your wallet to check migration eligibility, then migrate.
+            VSL users can access their migrated assets here. $POWER is
+            automatically migrated to $RSS3. For Folo wallets, migration is
+            completed automatically; transfers, withdrawals, and other wallet
+            actions should continue through Folo Wallet.
           </p>
         </header>
 
@@ -46,7 +49,7 @@ function ClaimFallback() {
 
         <div className="claim-actions">
           <button className="button button--primary" type="button" disabled>
-            Migrate
+            Claim
           </button>
           <div className="claim-hint">Loading wallet interface...</div>
         </div>
