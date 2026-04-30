@@ -4,7 +4,7 @@ import ClaimIsland from "./ClaimIsland";
 
 export const metadata = {
   title: "Access VSL Assets",
-  description: "VSL users can access migrated assets here.",
+  description: "Your assets from VSL have been migrated to Ethereum.",
 };
 
 export default function ClaimPage() {

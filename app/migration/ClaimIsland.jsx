@@ -14,10 +14,9 @@ function ClaimFallback() {
         <header className="claim-card__header">
           <h1 className="claim-title">Access VSL Assets</h1>
           <p className="claim-subtitle">
-            VSL users can access their migrated assets here. $POWER is
-            automatically migrated to $RSS3. For Folo wallets, migration is
-            completed automatically; transfers, withdrawals, and other wallet
-            actions should continue through Folo Wallet.
+            Your assets from VSL have been migrated to Ethereum. $POWER has
+            been automatically converted into $RSS3. If you are using a Folo
+            wallet, no action is required.
           </p>
         </header>
 
@@ -38,9 +37,6 @@ function ClaimFallback() {
               <div className="claim-amount">
                 <div className="claim-amount__primary">
                   <span>0</span>
-                </div>
-                <div className="claim-amount__secondary">
-                  <span className="muted">0 (raw)</span>
                 </div>
               </div>
             </div>

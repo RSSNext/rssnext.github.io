@@ -205,7 +205,7 @@ export default function HomePage() {
               </ul>
               <div className="link-row">
                 <a href="/blog/about-rss3.html">About $RSS3</a>
-                <span className="link-row__static" aria-disabled="true">Migration Portal</span>
+                <a href="/migration/">Migration Portal</a>
               </div>
             </div>
 

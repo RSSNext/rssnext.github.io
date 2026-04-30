@@ -209,7 +209,6 @@ export default function ClaimClient() {
   }, [address, contractAddress, entry, publicClient, refetchClaimed, requiredChainId, writeContractAsync]);
 
   const isClaiming = claimState === "claiming" || isConfirmingInWallet;
-  const claimableRaw = entry?.amount || "0";
   const claimableHuman = entry ? formatTokenAmount(entry.amount) : "0";
   const isAlreadyClaimed = Boolean(hasClaimed || claimState === "success");
   const canClaim =
@@ -254,10 +253,9 @@ export default function ClaimClient() {
         <header className="claim-card__header">
           <h1 className="claim-title">Access VSL Assets</h1>
           <p className="claim-subtitle">
-            VSL users can access their migrated assets here. $POWER is
-            automatically migrated to $RSS3. For Folo wallets, migration is
-            completed automatically; transfers, withdrawals, and other wallet
-            actions should continue through Folo Wallet.
+            Your assets from VSL have been migrated to Ethereum. $POWER has
+            been automatically converted into $RSS3. If you are using a Folo
+            wallet, no action is required.
           </p>
         </header>
 
@@ -302,9 +300,6 @@ export default function ClaimClient() {
               <div className="claim-amount">
                 <div className="claim-amount__primary">
                   <span>{claimableHuman}</span>
-                </div>
-                <div className="claim-amount__secondary">
-                  <span className="muted">{claimableRaw} (raw)</span>
                 </div>
               </div>
             </div>
