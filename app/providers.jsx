@@ -4,7 +4,7 @@ import { getDefaultConfig, RainbowKitProvider, lightTheme } from "@rainbow-me/ra
 import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import { WagmiProvider, http } from "wagmi";
+import { WagmiProvider, fallback, http } from "wagmi";
 import { mainnet } from "wagmi/chains";
 
 const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
@@ -21,7 +21,7 @@ const config = getDefaultConfig({
   wallets: walletConnectProjectId ? undefined : browserWallets,
   chains: [mainnet],
   transports: {
-    [mainnet.id]: http(),
+    [mainnet.id]: fallback([http("https://ethereum.publicnode.com"), http("https://1rpc.io/eth")]),
   },
   ssr: true,
 });
