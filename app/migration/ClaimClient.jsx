@@ -71,13 +71,14 @@ function getErrorMessage(error) {
 }
 
 export default function ClaimClient() {
-  const { address, chainId, isConnected } = useAccount();
+  const { address, chainId, isConnected, status: accountStatus } = useAccount();
   const { switchChainAsync, isPending: isSwitchingNetwork } = useSwitchChain();
   const { writeContractAsync, isPending: isConfirmingInWallet } = useWriteContract();
 
   const [airdropConfig, setAirdropConfig] = useState(DEFAULT_CONFIG);
   const [merkle, setMerkle] = useState(null);
   const [loadError, setLoadError] = useState("");
+  const [isAirdropDataLoading, setIsAirdropDataLoading] = useState(true);
   const [claimMessage, setClaimMessage] = useState("");
   const [claimState, setClaimState] = useState("idle");
 
@@ -97,6 +98,13 @@ export default function ClaimClient() {
   const normalizedAccount = normalizeAddress(address);
   const entry = normalizedAccount ? merkle?.entries?.[normalizedAccount] || null : null;
   const wrongNetwork = Boolean(isConnected && chainId && chainId !== requiredChainId);
+  const shouldReadClaimed =
+    Boolean(address) &&
+    Boolean(entry) &&
+    isConfigured &&
+    isConnected &&
+    !wrongNetwork &&
+    claimState !== "success";
 
   const {
     data: hasClaimed,
@@ -109,13 +117,7 @@ export default function ClaimClient() {
     args: address ? [address] : undefined,
     chainId: requiredChainId,
     query: {
-      enabled:
-        Boolean(address) &&
-        Boolean(entry) &&
-        isConfigured &&
-        isConnected &&
-        !wrongNetwork &&
-        claimState !== "success",
+      enabled: shouldReadClaimed,
     },
   });
 
@@ -124,6 +126,7 @@ export default function ClaimClient() {
 
     async function loadAirdropData() {
       setLoadError("");
+      setIsAirdropDataLoading(true);
 
       try {
         const configResponse = await fetch("/airdrop.config.json", { cache: "no-store" });
@@ -152,10 +155,12 @@ export default function ClaimClient() {
 
         if (!cancelled) {
           setMerkle({ ...loadedMerkle, entries: normalizedEntries });
+          setIsAirdropDataLoading(false);
         }
       } catch (error) {
         if (!cancelled) {
           setLoadError(getErrorMessage(error));
+          setIsAirdropDataLoading(false);
         }
       }
     }
@@ -209,14 +214,20 @@ export default function ClaimClient() {
   }, [address, contractAddress, entry, publicClient, refetchClaimed, requiredChainId, writeContractAsync]);
 
   const isClaiming = claimState === "claiming" || isConfirmingInWallet;
+  const isWalletStatusSettling = accountStatus === "connecting" || accountStatus === "reconnecting";
   const claimableHuman = entry ? formatTokenAmount(entry.amount) : "0";
   const isAlreadyClaimed = Boolean(hasClaimed || claimState === "success");
+  const isClaimStatusLoading = shouldReadClaimed && hasClaimed === undefined && !claimedReadError;
+  const isAmountLoading = isAirdropDataLoading || isWalletStatusSettling || isClaimStatusLoading;
   const canClaim =
     isConfigured &&
     isConnected &&
     !wrongNetwork &&
     Boolean(merkle) &&
     Boolean(entry) &&
+    !isAirdropDataLoading &&
+    !isWalletStatusSettling &&
+    !isClaimStatusLoading &&
     !isAlreadyClaimed &&
     !claimedReadError &&
     !isClaiming;
@@ -226,10 +237,14 @@ export default function ClaimClient() {
 
   let hint = claimMessage;
   if (!hint) {
-    if (!isConfigured) {
+    if (isAirdropDataLoading) {
+      hint = "Loading eligibility data...";
+    } else if (!isConfigured) {
       hint = "Migration is not configured yet.";
     } else if (loadError) {
       hint = loadError;
+    } else if (isWalletStatusSettling) {
+      hint = "Loading wallet...";
     } else if (!isConnected) {
       hint = "Connect your wallet to check eligibility.";
     } else if (wrongNetwork) {
@@ -238,6 +253,8 @@ export default function ClaimClient() {
       hint = "Loading eligibility data...";
     } else if (!entry) {
       hint = "This wallet is not eligible for migration.";
+    } else if (isClaimStatusLoading) {
+      hint = "Checking claim status...";
     } else if (isAlreadyClaimed) {
       hint = "You've already claimed with this wallet.";
     } else if (claimedReadError) {
@@ -298,10 +315,17 @@ export default function ClaimClient() {
             <div className="claim-label">Migration amount</div>
             <div className="claim-value">
               <div className="claim-amount">
-                <div className="claim-amount__primary">
-                  <span>{claimableHuman}</span>
-                  <span className="claim-amount__unit">$RSS3</span>
-                </div>
+                {isAmountLoading ? (
+                  <div className="claim-amount__loading" role="status" aria-label="Loading migration amount">
+                    <span className="spinner is-on" aria-hidden="true" />
+                    <span>Loading</span>
+                  </div>
+                ) : (
+                  <div className="claim-amount__primary">
+                    <span>{claimableHuman}</span>
+                    <span className="claim-amount__unit">$RSS3</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

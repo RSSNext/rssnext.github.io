@@ -35,9 +35,9 @@ function ClaimFallback() {
             <div className="claim-label">Migration amount</div>
             <div className="claim-value">
               <div className="claim-amount">
-                <div className="claim-amount__primary">
-                  <span>0</span>
-                  <span className="claim-amount__unit">$RSS3</span>
+                <div className="claim-amount__loading" role="status" aria-label="Loading migration amount">
+                  <span className="spinner is-on" aria-hidden="true" />
+                  <span>Loading</span>
                 </div>
               </div>
             </div>
