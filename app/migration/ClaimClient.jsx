@@ -200,8 +200,8 @@ export default function ClaimClient() {
       }
 
       setClaimState("success");
-      setClaimMessage("Migration successful. Tokens are now in your wallet.");
-      await refetchClaimed();
+      setClaimMessage("You've already claimed with this wallet.");
+      await refetchClaimed().catch(() => undefined);
     } catch (error) {
       setClaimState("error");
       setClaimMessage(getErrorMessage(error));
@@ -238,10 +238,10 @@ export default function ClaimClient() {
       hint = "Loading eligibility data...";
     } else if (!entry) {
       hint = "This wallet is not eligible for migration.";
+    } else if (isAlreadyClaimed) {
+      hint = "You've already claimed with this wallet.";
     } else if (claimedReadError) {
       hint = "Unable to check migration status. Please try again.";
-    } else if (isAlreadyClaimed) {
-      hint = "You've already migrated with this wallet.";
     } else {
       hint = "You'll confirm a transaction in your wallet.";
     }
