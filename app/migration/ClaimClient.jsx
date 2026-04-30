@@ -300,6 +300,7 @@ export default function ClaimClient() {
               <div className="claim-amount">
                 <div className="claim-amount__primary">
                   <span>{claimableHuman}</span>
+                  <span className="claim-amount__unit">$RSS3</span>
                 </div>
               </div>
             </div>

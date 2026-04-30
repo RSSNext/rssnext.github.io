@@ -37,6 +37,7 @@ function ClaimFallback() {
               <div className="claim-amount">
                 <div className="claim-amount__primary">
                   <span>0</span>
+                  <span className="claim-amount__unit">$RSS3</span>
                 </div>
               </div>
             </div>

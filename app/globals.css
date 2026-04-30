@@ -1644,9 +1644,18 @@ body.page--article h1 {
 }
 
 .claim-amount__primary {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
   font-variant-numeric: tabular-nums;
   font-size: clamp(1.3rem, 2.3vw, 1.7rem);
   font-weight: 700;
+}
+
+.claim-amount__unit {
+  color: var(--muted);
+  font-size: 0.78em;
+  font-weight: 650;
 }
 
 .muted {
