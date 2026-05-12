@@ -67,6 +67,14 @@ function formatTokenAmount(rawValue) {
 }
 
 function getErrorMessage(error) {
+  let current = error;
+  while (current) {
+    if (current.code === -32002 || current.name === "ResourceUnavailableRpcError") {
+      return "Your wallet could not create the transaction. Refresh and try again, or use another wallet/browser on Ethereum mainnet.";
+    }
+    current = current.cause;
+  }
+
   return error?.shortMessage || error?.message || "Something went wrong. Please try again.";
 }
 
@@ -187,15 +195,27 @@ export default function ClaimClient() {
     }
 
     setClaimState("claiming");
-    setClaimMessage("Confirm the transaction in your wallet...");
+    setClaimMessage("Preparing the claim transaction...");
 
     try {
-      const hash = await writeContractAsync({
+      const claimArgs = [BigInt(entry.amount), entry.proof || []];
+      const estimatedGas = await publicClient.estimateContractGas({
+        account: address,
         address: contractAddress,
         abi: AIRDROP_ABI,
         functionName: "claim",
-        args: [BigInt(entry.amount), entry.proof || []],
+        args: claimArgs,
+      });
+
+      setClaimMessage("Confirm the transaction in your wallet...");
+      const hash = await writeContractAsync({
+        account: address,
+        address: contractAddress,
+        abi: AIRDROP_ABI,
+        functionName: "claim",
+        args: claimArgs,
         chainId: requiredChainId,
+        gas: estimatedGas + estimatedGas / 5n,
       });
 
       setClaimMessage("Transaction submitted. Waiting for confirmation...");
